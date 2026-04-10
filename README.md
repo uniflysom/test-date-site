@@ -47,7 +47,15 @@ npm run dev
 
 ## 배포 (예: Vercel)
 
-프로젝트를 연 뒤 환경 변수에 `SCHEDULE_SPREADSHEET_ID`와 필요 시 `SCHEDULE_SHEET_GID`를 설정합니다.
+- **기본**: 코드에 기본 스프레드시트 ID가 들어 있어, 환경 변수 없이 배포해도 동일한 시트를 읽습니다.
+- **다른 시트를 쓰려면**: Vercel 프로젝트 → **Settings** → **Environment Variables**에 다음을 추가합니다.
+  - `SCHEDULE_SPREADSHEET_ID` — 문서 ID (URL의 `/d/` 와 `/edit` 사이)
+  - `SCHEDULE_SHEET_GID` — (선택) 탭 `gid`, 기본 `0`
+- 값을 바꾼 뒤 **Redeploy**를 해야 반영되는 경우가 많습니다.
+
+### 배포 후 “환경 변수가 없습니다”가 뜰 때
+
+이 저장소는 `.env.local`을 Git에 올리지 않습니다. 로컬에서만 `.env.local`이 있고, **Vercel(또는 다른 호스팅)에는 직접 환경 변수를 넣어야** 합니다. 위처럼 설정하거나, 기본 시트를 그대로 쓰면 [schedule.ts](src/lib/schedule.ts)의 기본 ID로 동작합니다.
 
 ## 데이터 갱신
 

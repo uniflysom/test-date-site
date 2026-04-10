@@ -3,8 +3,14 @@ import type { ScheduleResult } from "./types";
 
 const REVALIDATE_SECONDS = 120;
 
-function getSpreadsheetId(): string | undefined {
-  return process.env.SCHEDULE_SPREADSHEET_ID?.trim() || undefined;
+/** 배포 시 환경 변수가 없을 때 사용. 다른 시트는 `SCHEDULE_SPREADSHEET_ID`로 덮어씁니다. */
+const DEFAULT_SPREADSHEET_ID =
+  "1P--wtuvsTjwTc4ry_fk7GSQmgqqXL9QSUF0ZHNBtw24";
+
+function getSpreadsheetId(): string {
+  return (
+    process.env.SCHEDULE_SPREADSHEET_ID?.trim() || DEFAULT_SPREADSHEET_ID
+  );
 }
 
 function getSheetGid(): string {
@@ -13,14 +19,6 @@ function getSheetGid(): string {
 
 export async function getSchedule(): Promise<ScheduleResult> {
   const id = getSpreadsheetId();
-  if (!id) {
-    return {
-      events: [],
-      error:
-        "환경 변수 SCHEDULE_SPREADSHEET_ID가 설정되지 않았습니다. .env.local을 확인하세요.",
-    };
-  }
-
   const gid = getSheetGid();
   const url = buildExportUrl(id, gid);
 
