@@ -1,26 +1,56 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --col-bg13: #ffffff;
+  --col-text00: #222222;
+  --col-text04: #45515e;
+  --col-text-muted: #8e8e93;
+  --charcoal: #181e25;
+  --button-text: #18181b;
+  --border-gray: #e5e7eb;
+  --border-light: #f2f3f5;
+  --secondary-btn-bg: #f0f0f0;
+  --brand-6: #1456f0;
+  --col-brand00: #3daeff;
+  --col-brand02: #ea5ec1;
+  --color-primary-200: #bfdbfe;
+  --color-primary-light: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --brand-3: #17437d;
+  --success-bg: #e8ffea;
+  --shadow-card: rgba(0, 0, 0, 0.08) 0px 4px 6px;
+  --shadow-soft: rgba(0, 0, 0, 0.08) 0px 0px 22.576px;
+  --shadow-brand-glow: rgba(44, 30, 116, 0.16) 0px 0px 15px;
+  --shadow-elevated: rgba(36, 36, 36, 0.08) 0px 12px 16px -4px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: var(--col-bg13);
+  --color-foreground: var(--col-text00);
+  --color-text-secondary: var(--col-text04);
+  --color-text-muted: var(--col-text-muted);
+  --color-brand: var(--brand-6);
+  --color-primary-500: var(--color-primary-500);
+  --color-footer: var(--charcoal);
+  --font-sans: var(--font-dm-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--col-bg13);
+  color: var(--col-text00);
+  font-family: var(--font-dm-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-outfit), "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.font-mid {
+  font-family: var(--font-poppins), "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.font-data {
+  font-family: var(--font-roboto), "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
