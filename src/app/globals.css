@@ -1,56 +1,63 @@
 @import "tailwindcss";
 
+/* Apple-inspired — DESIGN.md */
 :root {
-  --col-bg13: #ffffff;
-  --col-text00: #222222;
-  --col-text04: #45515e;
-  --col-text-muted: #8e8e93;
-  --charcoal: #181e25;
-  --button-text: #18181b;
-  --border-gray: #e5e7eb;
-  --border-light: #f2f3f5;
-  --secondary-btn-bg: #f0f0f0;
-  --brand-6: #1456f0;
-  --col-brand00: #3daeff;
-  --col-brand02: #ea5ec1;
-  --color-primary-200: #bfdbfe;
-  --color-primary-light: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --brand-3: #17437d;
-  --success-bg: #e8ffea;
-  --shadow-card: rgba(0, 0, 0, 0.08) 0px 4px 6px;
-  --shadow-soft: rgba(0, 0, 0, 0.08) 0px 0px 22.576px;
-  --shadow-brand-glow: rgba(44, 30, 116, 0.16) 0px 0px 15px;
-  --shadow-elevated: rgba(36, 36, 36, 0.08) 0px 12px 16px -4px;
+  --apple-black: #000000;
+  --apple-light-gray: #f5f5f7;
+  --apple-near-black: #1d1d1f;
+  --apple-blue: #0071e3;
+  --apple-link: #0066cc;
+  --apple-link-bright: #2997ff;
+  --apple-white: #ffffff;
+  --apple-text-secondary: rgba(0, 0, 0, 0.8);
+  --apple-text-tertiary: rgba(0, 0, 0, 0.48);
+  --apple-dark-1: #272729;
+  --apple-dark-2: #262628;
+  --apple-btn-light: #fafafc;
+  --apple-btn-active: #ededf2;
+  --apple-nav-glass: rgba(0, 0, 0, 0.8);
+  --apple-card-shadow: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
+  --apple-filter-border: rgba(0, 0, 0, 0.04);
 }
 
 @theme inline {
-  --color-background: var(--col-bg13);
-  --color-foreground: var(--col-text00);
-  --color-text-secondary: var(--col-text04);
-  --color-text-muted: var(--col-text-muted);
-  --color-brand: var(--brand-6);
-  --color-primary-500: var(--color-primary-500);
-  --color-footer: var(--charcoal);
-  --font-sans: var(--font-dm-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --color-background: var(--apple-light-gray);
+  --color-foreground: var(--apple-near-black);
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 body {
-  background: var(--col-bg13);
-  color: var(--col-text00);
-  font-family: var(--font-dm-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--apple-light-gray);
+  color: var(--apple-near-black);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.022em;
 }
 
-.font-display {
-  font-family: var(--font-outfit), "Helvetica Neue", Helvetica, Arial, sans-serif;
+/* Display / hero — SF Pro Display substitute */
+.text-hero {
+  font-family: var(--font-inter), -apple-system, sans-serif;
+  font-weight: 600;
+  line-height: 1.07;
+  letter-spacing: -0.028em;
 }
 
-.font-mid {
-  font-family: var(--font-poppins), "Helvetica Neue", Helvetica, Arial, sans-serif;
+.font-body {
+  font-family: var(--font-inter), -apple-system, sans-serif;
+  letter-spacing: -0.022em;
 }
 
-.font-data {
-  font-family: var(--font-roboto), "Helvetica Neue", Helvetica, Arial, sans-serif;
+.font-mono-code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    monospace;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+}
+
+.focus-apple:focus-visible {
+  outline: 2px solid var(--apple-blue);
+  outline-offset: 2px;
 }

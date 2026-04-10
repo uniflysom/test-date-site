@@ -5,6 +5,9 @@ import type { ScheduleEvent } from "@/lib/types";
 
 const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
 
+const focusCls =
+  "focus-apple focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--apple-blue)] focus-visible:outline-offset-2";
+
 function formatLocalDateKey(d: Date): string {
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, "0");
@@ -91,78 +94,91 @@ export function ScheduleCalendar({ events }: { events: ScheduleEvent[] }) {
   }
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+    <div className="flex flex-col gap-8 lg:gap-10">
+      <div className="rounded-lg bg-[var(--apple-white)] p-4 shadow-[var(--apple-card-shadow)] sm:p-5">
+        <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={prevMonth}
+              className={`font-body rounded-[11px] border-[3px] border-[var(--apple-filter-border)] bg-[var(--apple-btn-light)] px-3.5 py-2 text-[15px] font-normal text-[var(--apple-text-secondary)] transition hover:bg-[var(--apple-btn-active)] ${focusCls}`}
+            >
+              이전
+            </button>
+            <h2 className="text-hero min-w-[10rem] text-center text-[clamp(1.25rem,3.5vw,1.75rem)] text-[var(--apple-near-black)] sm:min-w-[12rem]">
+              {monthTitle}
+            </h2>
+            <button
+              type="button"
+              onClick={nextMonth}
+              className={`font-body rounded-[11px] border-[3px] border-[var(--apple-filter-border)] bg-[var(--apple-btn-light)] px-3.5 py-2 text-[15px] font-normal text-[var(--apple-text-secondary)] transition hover:bg-[var(--apple-btn-active)] ${focusCls}`}
+            >
+              다음
+            </button>
+          </div>
           <button
             type="button"
-            onClick={prevMonth}
-            className="rounded-full bg-black/[0.05] px-4 py-2.5 text-sm font-medium text-[var(--button-text)] transition hover:bg-black/[0.08]"
+            onClick={goToday}
+            className={`font-body self-start rounded-lg bg-[var(--apple-blue)] px-[15px] py-2 text-[17px] font-normal text-[var(--apple-white)] transition hover:brightness-110 active:brightness-95 sm:self-auto ${focusCls}`}
           >
-            이전
-          </button>
-          <h2 className="font-display min-w-[10rem] text-center text-2xl font-semibold text-[var(--col-text00)] sm:text-[1.94rem]">
-            {monthTitle}
-          </h2>
-          <button
-            type="button"
-            onClick={nextMonth}
-            className="rounded-full bg-black/[0.05] px-4 py-2.5 text-sm font-medium text-[var(--button-text)] transition hover:bg-black/[0.08]"
-          >
-            다음
+            {"\uC774\uBC88 \uB2EC\uB85C"}
           </button>
         </div>
-        <button
-          type="button"
-          onClick={goToday}
-          className="self-start rounded-lg bg-[var(--charcoal)] px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 sm:self-auto"
-        >
-          이번 달로
-        </button>
       </div>
 
-      <div className="overflow-x-auto rounded-[20px] border border-[var(--border-light)] bg-white shadow-[var(--shadow-card)]">
+      <div className="overflow-x-auto rounded-lg bg-[var(--apple-white)] shadow-[var(--apple-card-shadow)]">
         <div className="min-w-[min(100%,880px)]">
-          <div className="grid grid-cols-7 border-b border-[var(--border-light)] bg-[#f8fafc] px-1 py-3">
+          <div className="grid grid-cols-7 bg-[var(--apple-near-black)] px-1 py-3">
             {WEEKDAYS.map((w) => (
               <div
                 key={w}
-                className="font-data text-center text-xs font-medium tracking-wide text-[var(--col-text-muted)] sm:text-sm"
+                className="font-body text-center text-[11px] font-normal text-[var(--apple-white)]/[0.64] sm:text-[12px]"
               >
                 {w}
               </div>
             ))}
           </div>
-          <div className="grid grid-cols-7 gap-px bg-[var(--border-light)] p-px">
+          <div className="grid grid-cols-7 gap-px bg-[var(--apple-light-gray)] p-px">
             {cells.map(({ date, inMonth }) => {
               const key = formatLocalDateKey(date);
               const dayEvents = byKey.get(key) ?? [];
               const isToday = key === todayKey;
+              const dow = date.getDay();
+              const isWeekend = dow === 0 || dow === 6;
               return (
                 <div
                   key={key}
-                  className={`flex min-h-[92px] flex-col bg-white p-1.5 sm:min-h-[112px] sm:p-2 ${
-                    inMonth ? "" : "opacity-45"
-                  } ${isToday ? "shadow-[0_0_0_2px_var(--brand-6)]" : ""}`}
+                  className={`flex min-h-[96px] flex-col bg-[var(--apple-white)] p-1.5 sm:min-h-[118px] sm:p-2 ${
+                    isWeekend && inMonth ? "bg-[var(--apple-btn-light)]" : ""
+                  } ${inMonth ? "" : "opacity-40"} ${
+                    isToday
+                      ? "ring-2 ring-inset ring-[var(--apple-blue)]"
+                      : ""
+                  }`}
                 >
-                  <div
-                    className={`font-data text-right text-xs font-medium sm:text-sm ${
-                      inMonth
-                        ? "text-[var(--col-text00)]"
-                        : "text-[var(--col-text-muted)]"
-                    }`}
-                  >
-                    {date.getDate()}
+                  <div className="flex items-start justify-between gap-1">
+                    <span className="font-body text-[10px] font-normal uppercase tracking-wide text-[var(--apple-text-tertiary)] sm:text-[11px]">
+                      {isToday ? "\uC624\uB298" : ""}
+                    </span>
+                    <span
+                      className={`font-body text-[12px] font-semibold sm:text-[13px] ${
+                        inMonth
+                          ? "text-[var(--apple-near-black)]"
+                          : "text-[var(--apple-text-tertiary)]"
+                      }`}
+                    >
+                      {date.getDate()}
+                    </span>
                   </div>
-                  <ul className="mt-1 flex min-h-0 flex-1 flex-col gap-0.5 overflow-hidden">
+                  <ul className="mt-1 space-y-0.5">
                     {dayEvents.slice(0, 4).map((ev, i) => (
                       <li key={`${key}-${ev.title}-${i}-${ev.time ?? ""}`}>
                         <span
-                          className="font-data line-clamp-2 rounded-[11px] bg-[var(--color-primary-200)]/50 px-1.5 py-1 text-[10px] leading-snug text-[var(--brand-3)] shadow-[var(--shadow-card)] sm:text-xs"
+                          className="font-body line-clamp-2 rounded-[5px] bg-[var(--apple-light-gray)] px-1.5 py-1 text-[10px] leading-snug text-[var(--apple-near-black)] sm:text-[11px]"
                           title={`${ev.title}${ev.time ? ` · ${ev.time}` : ""}${ev.location ? ` · ${ev.location}` : ""}`}
                         >
                           {ev.time ? (
-                            <span className="text-[var(--color-primary-600)]">
+                            <span className="text-[var(--apple-text-secondary)]">
                               {ev.time}{" "}
                             </span>
                           ) : null}
@@ -171,7 +187,7 @@ export function ScheduleCalendar({ events }: { events: ScheduleEvent[] }) {
                       </li>
                     ))}
                     {dayEvents.length > 4 ? (
-                      <li className="font-data px-0.5 text-[10px] text-[var(--col-text-muted)] sm:text-xs">
+                      <li className="font-body px-0.5 text-[10px] text-[var(--apple-text-tertiary)] sm:text-[11px]">
                         +{dayEvents.length - 4}건
                       </li>
                     ) : null}
@@ -184,34 +200,36 @@ export function ScheduleCalendar({ events }: { events: ScheduleEvent[] }) {
       </div>
 
       {undated.length > 0 ? (
-        <section className="rounded-2xl border border-dashed border-[var(--border-gray)] bg-white/60 px-5 py-6 sm:px-8">
-          <h3 className="font-display text-lg font-semibold text-[var(--col-text00)]">
-            날짜를 알 수 없는 일정
+        <section className="rounded-lg bg-[var(--apple-white)] px-5 py-6 shadow-[var(--apple-card-shadow)] sm:px-8">
+          <h3 className="text-hero text-[21px] text-[var(--apple-near-black)]">
+            {"\uB0A0\uC9DC\uB97C \uC54C \uC218 \uC5C6\uB294 \uC77C\uC815"}
           </h3>
-          <p className="font-data mt-1 text-sm text-[var(--col-text04)]">
-            날짜 열을 읽지 못한 행은 달력 칸에 넣지 않고 여기만 표시합니다.
+          <p className="font-body mt-2 text-[14px] leading-[1.43] text-[var(--apple-text-secondary)]">
+            {
+              "\uB0A0\uC9DC \uC5F4\uC744 \uC77D\uC9C0 \uBABB\uD55C \uD589\uC740 \uB2EC\uB825 \uCE78\uC5D0 \uB123\uC9C0 \uC54A\uACE0 \uC5EC\uAE30\uB9CC \uD45C\uC2DC\uD569\uB2C8\uB2E4."
+            }
           </p>
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-5 space-y-3">
             {undated.map((ev, i) => (
               <li
                 key={`undated-${ev.title}-${i}-${ev.time ?? ""}`}
-                className="rounded-2xl border border-[var(--border-light)] bg-white p-4 shadow-[var(--shadow-card)]"
+                className="rounded-lg bg-[var(--apple-light-gray)] p-5"
               >
-                <p className="font-display text-base font-medium text-[var(--col-text00)]">
+                <p className="text-hero text-[17px] text-[var(--apple-near-black)]">
                   {ev.title}
                 </p>
                 {ev.date ? (
-                  <p className="font-data mt-1 text-sm text-[var(--col-text04)]">
+                  <p className="font-body mt-2 text-[14px] text-[var(--apple-text-secondary)]">
                     {ev.date}
                   </p>
                 ) : null}
                 {ev.time ? (
-                  <p className="font-data text-sm text-[var(--col-text04)]">
+                  <p className="font-body text-[14px] text-[var(--apple-text-secondary)]">
                     {ev.time}
                   </p>
                 ) : null}
                 {ev.location ? (
-                  <p className="font-data text-sm text-[var(--col-text04)]">
+                  <p className="font-body text-[14px] text-[var(--apple-text-secondary)]">
                     {ev.location}
                   </p>
                 ) : null}

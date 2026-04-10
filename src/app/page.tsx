@@ -7,57 +7,104 @@ export default async function Home() {
   const { events, error } = await getSchedule();
 
   return (
-    <div className="flex flex-1 flex-col bg-[var(--col-bg13)]">
-      <header className="sticky top-0 z-10 border-b border-[var(--border-light)] bg-white/90 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <span className="text-sm font-medium text-[var(--button-text)]">
-            회사 일정
+    <div className="flex min-h-full flex-1 flex-col bg-[var(--apple-light-gray)]">
+      <header
+        className="sticky top-0 z-20 h-12 border-b border-white/10 text-[12px] text-[var(--apple-white)] backdrop-blur-[20px] backdrop-saturate-180"
+        style={{ backgroundColor: "var(--apple-nav-glass)" }}
+      >
+        <div className="mx-auto flex h-full max-w-[980px] items-center justify-between px-4 sm:px-6">
+          <span className="font-body font-normal tracking-tight">
+            {"\uD68C\uC0AC \uC77C\uC815"}
           </span>
-          <nav className="hidden sm:block" aria-label="보조">
-            <span className="rounded-full bg-black/[0.05] px-4 py-2 text-sm font-medium text-[var(--button-text)]">
-              일정 보기
-            </span>
-          </nav>
+          <span className="font-body hidden text-[var(--apple-white)]/80 sm:inline">
+            {"\uC2A4\uD504\uB808\uB4DC\uC2DC\uD2B8 \uC5F0\uB3D9"}
+          </span>
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
-        <section className="mb-12 sm:mb-16 lg:mb-20">
-          <h1 className="font-display max-w-3xl text-4xl font-medium leading-[1.1] tracking-tight text-[var(--col-text00)] sm:text-5xl lg:text-[3.5rem]">
-            함께하는 일정
+      <section className="bg-[var(--apple-black)] px-4 py-16 text-[var(--apple-white)] sm:py-20 lg:py-24">
+        <div className="mx-auto max-w-[980px]">
+          <h1 className="text-hero max-w-3xl text-[clamp(2rem,6vw,3.5rem)]">
+            {"\uD568\uAED8\uD558\uB294 \uC77C\uC815"}
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-[1.5] text-[var(--col-text04)] sm:text-lg">
-            공개 스프레드시트와 동기화된 회사 일정입니다. 변경 사항은 잠시 후
-            자동으로 반영됩니다.
+          <p className="font-body mt-5 max-w-2xl text-[17px] font-normal leading-[1.47] text-[var(--apple-white)]/[0.8] sm:text-[19px]">
+            {
+              "\uACF5\uAC1C \uC2A4\uD504\uB808\uB4DC\uC2DC\uD2B8\uC640 \uB3D9\uAE30\uD654\uB41C \uD68C\uC0AC \uC77C\uC815\uC785\uB2C8\uB2E4. \uBCC0\uACBD \uC0AC\uD56D\uC740 \uC7A0\uC2DC \uD6C4 \uC790\uB3D9\uC73C\uB85C \uBC18\uC601\uB429\uB2C8\uB2E4."
+            }
           </p>
-        </section>
+          {!error && events.length > 0 ? (
+            <p className="font-body mt-6 text-[14px] leading-[1.43] text-[var(--apple-link-bright)]">
+              {"\uB4F1\uB85D \uC77C\uC815 "}
+              <span className="font-semibold text-[var(--apple-white)]">
+                {events.length}
+                {"\uAC74"}
+              </span>
+            </p>
+          ) : null}
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="#calendar"
+              className="font-body focus-apple inline-flex items-center rounded-[980px] border border-[var(--apple-link-bright)] bg-transparent px-5 py-2 text-[14px] font-normal text-[var(--apple-link-bright)] transition hover:underline"
+            >
+              {"\uC77C\uC815 \uBCF4\uAE30"}
+            </a>
+            <a
+              href="#calendar"
+              className="font-body focus-apple inline-flex items-center rounded-lg bg-[var(--apple-blue)] px-[15px] py-2 text-[17px] font-normal text-[var(--apple-white)] transition hover:brightness-110"
+            >
+              {"\uB2EC\uB825\uC73C\uB85C"}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <main
+        id="calendar"
+        className="mx-auto w-full max-w-[980px] flex-1 px-4 py-14 sm:px-6 sm:py-16 lg:py-20"
+      >
+        {!error && events.length > 0 ? (
+          <div className="mb-8">
+            <h2 className="text-hero text-[28px] text-[var(--apple-near-black)] sm:text-[32px]">
+              {"\uC6D4\uAC04 \uC77C\uC815"}
+            </h2>
+            <p className="font-body mt-2 text-[14px] leading-[1.29] text-[var(--apple-text-tertiary)]">
+              {
+                "\uD55C \uB2EC \uB2E8\uC704\uB85C \uC77C\uC815\uC744 \uBAA8\uC544 \uBCF4\uC5EC \uC90D\uB2C8\uB2E4."
+              }
+            </p>
+          </div>
+        ) : null}
 
         {error ? (
           <div
-            className="rounded-2xl border border-[var(--border-gray)] bg-[var(--secondary-btn-bg)] px-6 py-8 text-[var(--col-text04)] shadow-[var(--shadow-card)]"
+            className="rounded-lg bg-[var(--apple-white)] px-6 py-8 shadow-[var(--apple-card-shadow)]"
             role="alert"
           >
-            <p className="font-mid text-lg font-medium text-[var(--col-text00)]">
-              일정을 불러올 수 없습니다
+            <p className="text-hero text-[21px] text-[var(--apple-near-black)]">
+              {"\uC77C\uC815\uC744 \uBD88\uB7EC\uC62C \uC218 \uC5C6\uC2B5\uB2C8\uB2E4"}
             </p>
-            <p className="font-data mt-2 text-sm leading-relaxed">{error}</p>
-            <p className="font-data mt-4 text-sm text-[var(--col-text-muted)]">
-              스프레드시트가 &quot;링크가 있는 모든 사용자&quot; 또는
-              &quot;웹에 공개&quot;로 읽기 가능한지,{" "}
-              <code className="rounded bg-white/80 px-1.5 py-0.5 text-[var(--col-text00)]">
+            <p className="font-body mt-3 text-[14px] leading-[1.43] text-[var(--apple-text-secondary)]">
+              {error}
+            </p>
+            <p className="font-body mt-4 text-[14px] text-[var(--apple-text-tertiary)]">
+              {
+                "\uC2A4\uD504\uB808\uB4DC\uC2DC\uD2B8\uAC00 \u201C\uB9C1\uD06C\uAC00 \uC788\uB294 \uBAA8\uB4E0 \uC0AC\uC6A9\uC790\u201D \uB610\uB294 \u201C\uC6F9\uC5D0 \uACF5\uAC1C\u201D\uB85C \uC77D\uAE30 \uAC00\uB2A5\uD55C\uC9C0, "
+              }
+              <code className="font-mono-code rounded-[5px] bg-[var(--apple-light-gray)] px-1.5 py-0.5 text-[var(--apple-near-black)]">
                 SCHEDULE_SPREADSHEET_ID
-              </code>{" "}
-              가 올바른지 확인해 주세요.
+              </code>
+              {" \uAC00 \uC62C\uBC14\uB978\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694."}
             </p>
           </div>
         ) : events.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-[var(--border-gray)] px-6 py-16 text-center">
-            <p className="font-display text-xl font-medium text-[var(--col-text00)]">
-              표시할 일정이 없습니다
+          <div className="rounded-lg bg-[var(--apple-white)] px-6 py-16 text-center shadow-[var(--apple-card-shadow)]">
+            <p className="text-hero text-[28px] text-[var(--apple-near-black)]">
+              {"\uD45C\uC2DC\uD560 \uC77C\uC815\uC774 \uC5C6\uC2B5\uB2C8\uB2E4"}
             </p>
-            <p className="font-data mt-2 text-sm text-[var(--col-text04)]">
-              스프레드시트에 데이터 행이 있고, 첫 행은 열 이름(헤더)으로
-              두었는지 확인해 주세요.
+            <p className="font-body mt-3 text-[17px] leading-[1.47] text-[var(--apple-text-secondary)]">
+              {
+                "\uC2A4\uD504\uB808\uB4DC\uC2DC\uD2B8\uC5D0 \uB370\uC774\uD130 \uD589\uC774 \uC788\uACE0, \uCCAB \uD589\uC740 \uC5F4 \uC774\uB984(\uD5E4\uB354)\uB85C \uB450\uC5C8\uB294\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694."
+              }
             </p>
           </div>
         ) : (
@@ -65,21 +112,24 @@ export default async function Home() {
         )}
       </main>
 
-      <footer className="mt-auto bg-[var(--charcoal)] px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid gap-8 sm:grid-cols-2">
+      <footer className="mt-auto bg-[var(--apple-black)] px-4 py-14 text-[var(--apple-white)] sm:px-6">
+        <div className="mx-auto max-w-[980px]">
+          <div className="grid gap-10 sm:grid-cols-2 sm:gap-12">
             <div>
-              <p className="font-display text-lg font-medium text-white/90">
-                회사 일정
+              <p className="text-hero text-[21px] text-[var(--apple-white)]">
+                {"\uD68C\uC0AC \uC77C\uC815"}
               </p>
-              <p className="font-data mt-2 max-w-md text-sm leading-relaxed text-white/80">
-                데이터는 Google 스프레드시트 CSV 내보내기로 불러오며, 캐시되어
-                주기적으로 갱신됩니다.
+              <p className="font-body mt-3 max-w-md text-[14px] leading-[1.43] text-[var(--apple-white)]/[0.64]">
+                {
+                  "\uB370\uC774\uD130\uB294 Google \uC2A4\uD504\uB808\uB4DC\uC2DC\uD2B8 CSV \uB0B4\uBCF4\uB0B4\uAE30\uB85C \uBD88\uB7EC\uC624\uBA70, \uCE90\uC2DC\uB418\uC5B4 \uC8FC\uAE30\uC801\uC73C\uB85C \uAC31\uC2E0\uB429\uB2C8\uB2E4."
+                }
               </p>
             </div>
-            <div className="sm:text-right">
-              <p className="font-data text-sm text-white/80">
-                © {new Date().getFullYear()} 회사 일정 뷰어
+            <div className="sm:flex sm:items-end sm:justify-end">
+              <p className="font-body text-[12px] text-[var(--apple-white)]/[0.48]">
+                {"\u00A9 "}
+                {new Date().getFullYear()}
+                {" \uD68C\uC0AC \uC77C\uC815 \uBDF0\uC5B4"}
               </p>
             </div>
           </div>
