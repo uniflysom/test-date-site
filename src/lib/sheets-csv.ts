@@ -249,6 +249,19 @@ function formatDisplayDate(raw: string): string {
   return t;
 }
 
+/** 로컬 날짜 기준 `YYYY-MM-DD` (달력 그리드 매칭용) */
+function parseDateRawToKey(raw: string): string | undefined {
+  const t = raw.trim();
+  if (!t) return undefined;
+  const parsed = Date.parse(t);
+  if (Number.isNaN(parsed)) return undefined;
+  const d = new Date(parsed);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
 function combineTime(
   map: ColumnMap,
   row: string[],
@@ -286,10 +299,12 @@ export function rowsToScheduleEvents(rows: string[][]): ScheduleEvent[] {
     if (!nonEmpty) continue;
 
     const displayDate = dateRaw ? formatDisplayDate(dateRaw) : undefined;
+    const dateKey = dateRaw ? parseDateRawToKey(dateRaw) : undefined;
 
     events.push({
       title: title || "(제목 없음)",
       date: displayDate || undefined,
+      dateKey,
       time,
       description: description || undefined,
       location: location || undefined,

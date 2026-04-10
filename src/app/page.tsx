@@ -1,3 +1,4 @@
+import { ScheduleCalendar } from "@/components/ScheduleCalendar";
 import { getSchedule } from "@/lib/schedule";
 
 export const revalidate = 120;
@@ -60,47 +61,7 @@ export default async function Home() {
             </p>
           </div>
         ) : (
-          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            {events.map((ev, i) => {
-              const featured = i === 0;
-              return (
-                <li key={`${ev.title}-${i}-${ev.date ?? ""}-${ev.time ?? ""}`}>
-                  <article
-                    className={`flex h-full flex-col rounded-[20px] border border-[var(--border-light)] bg-white p-6 transition-shadow duration-200 hover:shadow-[var(--shadow-elevated)] ${
-                      featured
-                        ? "shadow-[var(--shadow-brand-glow)]"
-                        : "shadow-[var(--shadow-card)]"
-                    }`}
-                  >
-                    <div className="font-data text-xs font-medium uppercase tracking-wide text-[var(--color-primary-600)]">
-                      {ev.date ?? "날짜 미정"}
-                    </div>
-                    {ev.time ? (
-                      <div className="font-data mt-1 text-sm text-[var(--col-text04)]">
-                        {ev.time}
-                      </div>
-                    ) : null}
-                    <h2 className="font-display mt-4 text-xl font-semibold leading-snug text-[var(--col-text00)] sm:text-2xl">
-                      {ev.title}
-                    </h2>
-                    {ev.location ? (
-                      <p className="font-data mt-3 text-sm text-[var(--col-text04)]">
-                        <span className="text-[var(--col-text-muted)]">
-                          장소{" "}
-                        </span>
-                        {ev.location}
-                      </p>
-                    ) : null}
-                    {ev.description ? (
-                      <p className="font-data mt-3 flex-1 text-sm leading-relaxed text-[var(--col-text04)]">
-                        {ev.description}
-                      </p>
-                    ) : null}
-                  </article>
-                </li>
-              );
-            })}
-          </ul>
+          <ScheduleCalendar events={events} />
         )}
       </main>
 
